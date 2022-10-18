@@ -10,10 +10,23 @@
         Width="800">
      
     <Grid>
-        <Button VerticalAlignment="Center"
+        <Grid.RowDefinitions>
+            <RowDefinition  Height="30"/>
+            <RowDefinition Height="*"/>
+        </Grid.RowDefinitions>
+
+            <Button VerticalAlignment="Center"
                 HorizontalAlignment="Center"
                 Command="{Binding ClickCommand}">
             Do magic
         </Button>
+        <ListView ItemsSource="{Binding Users}" Grid.Row="1">
+            <ListView.View>
+                <GridView>
+                    <GridViewColumn DisplayMemberBinding="{Binding Path=Name}" Width="100">Имя</GridViewColumn>
+                    <GridViewColumn DisplayMemberBinding="{Binding Path=Age}" Width="100">Возраст</GridViewColumn>
+                </GridView>
+            </ListView.View>
+        </ListView>
     </Grid>
 </Window>

@@ -19,9 +19,21 @@ namespace EFCoreStart
         /// С помощью экземпляров этого класса описываются различные объекты базы данных (таблицы, представления, хранимые процедуры и т.д.)
         /// </summary>
         public DbSet<User> Users { get; set; } = null!;
-        protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
+
+        //Конструктор вызовится после переопределенного метода OnConfiguring
+        /// <summary>
+        /// Конструктор по умолчанию
+        /// EnsureCreated(): гарантирует, что БД будет создана.
+        /// </summary>
+        public MyDbContext()
         {
-            optionsBuilder.UseSqlServer(@"Server=s-dev-01;Database=EntityExplanationDb;Trusted_Connection=True; Encrypt=false");
+            Database.EnsureCreated();//если БД не создана то она создастся
+
+            var canConnect = Database.CanConnect();//дает ответ, можем подключиться к бд или нет
+        }
+        protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
+        { 
+            optionsBuilder.UseSqlServer(@"Server=s-dev-01; Database=EntityExplanationDb; Trusted_Connection=True; Encrypt=false");
         }
 
     }

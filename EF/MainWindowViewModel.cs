@@ -1,6 +1,8 @@
-﻿using Prism.Commands;
+﻿using Microsoft.EntityFrameworkCore;
+using Prism.Commands;
 using System;
 using System.Collections.Generic;
+using System.Collections.ObjectModel;
 using System.ComponentModel;
 using System.Linq;
 using System.Runtime.CompilerServices;
@@ -16,6 +18,8 @@ namespace EFCoreStart
     {
         public event PropertyChangedEventHandler PropertyChanged;
 
+        public ObservableCollection<User>Users { get;}
+
         //using Prism.Commands;
         public DelegateCommand ClickCommand { get; }
 
@@ -24,14 +28,32 @@ namespace EFCoreStart
         public MainWindowViewModel()
         {
             ClickCommand = new DelegateCommand(OnClick);
+
+            Users = new ObservableCollection<User>();
         }
 
-        //DbContext реализует интерфейс IDisposable(Предоставляет механизм для освобождения неуправляемых ресурсов.)
+        //Так как DbContext реализует интерфейс IDisposable(Предоставляет механизм для освобождения неуправляемых ресурсов.),
+        //то MyDbContext можно поместить в блок using
         private void OnClick()
         {
+            //Для каждого изменения, для каждого подключения к БД,
+            //в using создаем новый экземпляр контекста
+            //в момент создания эземпляра 
             using (MyDbContext context = new MyDbContext())
             {
+                /*
+                User user1 = new User { Name = "Tom", Age=33 };
+                User user2 = new User { Name = "Alice", Age = 26 };
 
+                //Добавление в БД
+                context.Users.AddRange(user1, user2);
+                context.SaveChanges();
+                */
+
+                foreach (var user in context.Users)
+                {
+                    Users.Add(user);
+                }
             }
         }
 

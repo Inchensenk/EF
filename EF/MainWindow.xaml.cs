@@ -1,4 +1,5 @@
-﻿using System;
+﻿using EFCoreStart;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -23,6 +24,9 @@ namespace EF
         public MainWindow()
         {
             InitializeComponent();
+
+            //Привязываем в качестве контекста модель представления
+            DataContext = new MainWindowViewModel();
         }
     }
 }
