@@ -36,6 +36,14 @@ namespace EFCoreStart
             optionsBuilder.UseSqlServer(@"Server=s-dev-01; Database=EntityExplanationDb; Trusted_Connection=True; Encrypt=false");
         }
 
+        protected override void OnModelCreating(ModelBuilder modelBuilder)
+        {
+            //Выбираем сущность User, для нее выбираем при помощи экспрешна Id
+            //HasColumnName("user_id") название коллонки в базе данных
+            //изменение схемы
+            modelBuilder.Entity<User>().Property(n => n.Id).HasColumnName("User_id");
+        }
+
     }
 }
 /*
