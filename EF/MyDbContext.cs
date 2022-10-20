@@ -42,6 +42,8 @@ namespace EFCoreStart
             //HasColumnName("user_id") название коллонки в базе данных
             //изменение схемы
             modelBuilder.Entity<User>().Property(n => n.Id).HasColumnName("User_id");
+
+            modelBuilder.Entity<User>().Ignore(n => n.PhoneNumber);
         }
 
     }
