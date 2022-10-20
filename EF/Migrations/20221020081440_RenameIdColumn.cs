@@ -20,6 +20,7 @@ namespace EFCoreStart.Migrations
                 name: "User_id",
                 table: "Users",
                 newName: "Id");
+
         }
     }
 }
